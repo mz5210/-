@@ -1,0 +1,72 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="QMUI.Compat.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+
+
+        <!-- 配置qmui提供的theme -->
+        <item name="qmui_config_color_blue">@color/like_blue</item>
+        <item name="qmui_topbar_title_color">@color/qmui_config_color_white</item>
+        <item name="qmui_topbar_subtitle_color">@color/qmui_config_color_white</item>
+        <item name="qmui_topbar_text_btn_color_state_list">@color/like_blue</item>
+        <item name="qmui_topbar_height">48dp</item>
+        <item name="qmui_topbar_image_btn_height">48dp</item>
+        <item name="qmui_round_btn_bg_color">@color/like_blue</item>
+        <item name="qmui_round_btn_border_color">@color/like_blue</item>
+        <item name="qmui_round_btn_text_color">@color/like_blue</item>
+        <item name="qmui_content_spacing_horizontal">20dp</item>
+        <item name="qmui_content_padding_horizontal">@dimen/qmui_content_spacing_horizontal</item>
+
+        <item name="QMUITopBarStyle">@style/QDTopBar</item>
+
+
+    </style>
+
+    <style name="blue_edit_xiahua" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@android:color/darker_gray</item>
+        <item name="colorControlActivated">@android:color/holo_orange_dark</item>
+    </style>
+
+    <style name="QDtextAppearanceListItem">
+        <item name="android:textColor">?attr/qmui_config_color_black</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:background">?attr/qmui_s_list_item_bg_with_border_bottom_inset_left
+        </item>
+    </style>
+
+    <style name="QDTextAppearanceListItemSmall">
+        <item name="android:textColor">?attr/qmui_config_color_gray_4</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:background">?attr/qmui_s_list_item_bg_with_border_bottom_inset_left
+        </item>
+    </style>
+
+    <style name="QDCommonTitle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">6dp</item>
+        <item name="android:textColor">?attr/qmui_config_color_gray_1</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+
+
+    <style name="QDTopBar" parent="QMUI.TopBar">
+        <item name="qmui_topbar_bg_color">@color/like_blue</item>
+    </style>
+
+
+
+    <style name="button_wrapper_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">24dp</item>
+        <item name="android:paddingBottom">24dp</item>
+        <item name="android:background">@drawable/qmui_divider_bottom_bitmap</item>
+    </style>
+</resources>

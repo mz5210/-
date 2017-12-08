@@ -1,0 +1,68 @@
+apply plugin: 'com.android.application'
+
+Properties props = new Properties()
+props.load(new FileInputStream(file("signing.properties")))
+android {
+    signingConfigs {
+
+        //为安全起见signing.properties不加入版本控制
+        release {
+            keyAlias props['KEY_ALIAS']
+            keyPassword props['KEY_PASSWORD']
+            storeFile file(props['KEYSTORE_FILE'])
+            storePassword props['KEYSTORE_PASSWORD']
+        }
+    }
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "com.mz.snow"
+        minSdkVersion 15
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    def LOG_MODE = 'LOG_MODE'
+    buildTypes {
+        release {
+
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+            //打印log
+            buildConfigField 'boolean', "LOG_MODE", 'false'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:design:26.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support:support-v4:26.1.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    //SmartRefreshLayout上拉刷新下拉加载
+    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
+    //    Butter Knife
+    compile 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    //glide图片加载
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    //QMUI
+    compile 'com.qmuiteam:qmui:1.0.4'
+    //    文字输入框 (EditText)
+    compile 'com.rengwuxian.materialedittext:library:2.1.4'
+    //bmob 3.5.8
+    implementation('cn.bmob.android:bmob-sdk:3.5.8') {
+        exclude group: 'com.android.support', module: 'support-v4'
+    }
+    //bmob-push：Bmob的推送包
+    //    compile 'cn.bmob.android:bmob-push:0.8'
+    //bmob 如果你想应用能够兼容Android6.0，请添加此依赖(org.apache.http.legacy.jar)
+//    compile 'cn.bmob.android:http-legacy:1.0'
+
+}

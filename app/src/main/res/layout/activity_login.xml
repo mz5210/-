@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/low_cyan"
+    android:orientation="vertical"
+
+    tools:context="com.mz.snow.ui.LoginActivity">
+
+        <ImageView
+            android:src="@drawable/login_backs"
+            android:layout_gravity="top"
+            android:adjustViewBounds="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/edit_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:hint="账号"
+            android:maxLines="1"
+            android:theme="@style/blue_edit_xiahua"
+            app:met_floatingLabel="normal"
+             />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/edit_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:hint="密码"
+            android:maxLines="1"
+            android:inputType="textPassword"
+            app:met_clearButton="true"
+
+            app:met_floatingLabel="normal" />
+
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+            android:id="@+id/btn_login"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:elevation="5dp"
+            android:stateListAnimator="@null"
+            android:text="@string/login_button"
+            android:textColor="@color/write"
+            app:qmui_backgroundColor="@color/like_blue"
+            app:qmui_borderWidth="0dp"
+            app:qmui_radiusBottomLeft="5dp"
+            app:qmui_radiusBottomRight="20dp"
+            app:qmui_radiusTopLeft="20dp"
+            app:qmui_radiusTopRight="5dp" />
+
+
+</LinearLayout>
