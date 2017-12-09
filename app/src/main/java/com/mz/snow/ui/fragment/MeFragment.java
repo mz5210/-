@@ -81,8 +81,7 @@ public class MeFragment extends Fragment {
     void initViews() {
 
 
-//        状态栏黑色图标及字体
-        QMUIStatusBarHelper.setStatusBarLightMode(getActivity());
+
 //        个人资料item创建
         QMUICommonListItemView PersonalData = mGroupListView1.createItemView(getResources().getText(R.string.personal_data));
         PersonalData.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON);

@@ -1,6 +1,6 @@
 package com.mz.snow.ui.activity;
 
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.InputType;
@@ -127,7 +127,7 @@ public class PersonalDataActivity extends BaseActivity {
         QMUIGroupListView
                 .newSection(PersonalDataActivity.this)
                 .addItemView(nicknameItem, nicknameItemOnClick)
-                .addItemView(gender, null)
+                .addItemView(gender, genderItemOnClick)
                 .addTo(personalDataList1);
 //        添加item到列表2
         QMUIGroupListView
@@ -150,6 +150,12 @@ public class PersonalDataActivity extends BaseActivity {
         @Override
         public void onClick(View view) {
             showEditTextDialog(nicknameItem.getText().toString(), nicknameItem.getDetailText().toString());
+        }
+    };
+    View.OnClickListener genderItemOnClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            showGenderDialog(gender.getDetailText().toString());
         }
     };
 
@@ -224,24 +230,7 @@ public class PersonalDataActivity extends BaseActivity {
                             } else if (title.equals("手机号")) {
                                 userInfo.setMobilePhoneNumber(text.toString());
                             }
-                            MyTipDialog.showLodingDailog(PersonalDataActivity.this, "正在更新");
-                            userInfo.update(userInfo.getObjectId(), new UpdateListener() {
-                                @Override
-                                public void done(final BmobException e) {
-                                    new Handler().postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            if (e == null) {
-                                                MyTipDialog.showSuccessDialog(PersonalDataActivity.this, "更新成功");
-                                                itemSetText();
-                                            } else {
-//                                                toast("更新用户信息失败:" + e.getMessage());
-                                            }
-                                        }
-                                    }, 1000);
-
-                                }
-                            });
+                            UpdateInfo();
                         } else {
                             Toast.makeText(PersonalDataActivity.this, "请填入昵称", Toast.LENGTH_SHORT).show();
                         }
@@ -252,7 +241,44 @@ public class PersonalDataActivity extends BaseActivity {
 
     }
 
+    //    性别修改弹窗
+    private void showGenderDialog(String gender) {
+        int checkedIndex = gender.equals("男") ? 0 : 1;
+        final String[] items = new String[]{"男", "女"};
+        new QMUIDialog.CheckableDialogBuilder(PersonalDataActivity.this)
+                .setCheckedIndex(checkedIndex)
+                .addItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        userInfo.setGender(items[which]);
+                        UpdateInfo();
+                        dialog.dismiss();
+                    }
+                })
+                .show();
+    }
 
+    //    信息修改之后更新到bmob并显示更新弹窗 延迟1秒显示更新成功
+    void UpdateInfo() {
+        MyTipDialog.showLodingDailog(PersonalDataActivity.this, "正在更新");
+        userInfo.update(userInfo.getObjectId(), new UpdateListener() {
+            @Override
+            public void done(final BmobException e) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (e == null) {
+                            MyTipDialog.showSuccessDialog(PersonalDataActivity.this, "更新成功");
+                            itemSetText();
+                        } else {
+//                                                toast("更新用户信息失败:" + e.getMessage());
+                        }
+                    }
+                }, 1000);
+
+            }
+        });
+    }
 
     void refreshUser() {
         User.fetchUserJsonInfo(new FetchUserInfoListener<String>() {

@@ -17,6 +17,7 @@ import com.mz.snow.ui.fragment.MeFragment;
 import com.mz.snow.ui.fragment.Tab1Fragment;
 import com.mz.snow.ui.fragment.Tab2Fragment;
 import com.qmuiteam.qmui.util.QMUIResHelper;
+import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.qmuiteam.qmui.widget.QMUIPagerAdapter;
 import com.qmuiteam.qmui.widget.QMUITabSegment;
 
@@ -39,6 +40,8 @@ public class HomeActivity extends BaseActivity {
     }
 
     private void initTabs() {
+        //        状态栏黑色图标及字体
+        QMUIStatusBarHelper.setStatusBarLightMode(this);
         int normalColor = QMUIResHelper.getAttrColor(this, R.attr.qmui_config_color_gray_6);
         int selectColor = QMUIResHelper.getAttrColor(this, R.attr.qmui_config_color_blue);
         mTabSegment.setDefaultNormalColor(normalColor);
