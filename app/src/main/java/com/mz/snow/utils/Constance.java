@@ -25,4 +25,14 @@ public class Constance {
     public static final String BMOB_APP_ID = "652c3a63a9f020ae357a2e1ef0b78879 ";
 
 
+
+//图片保存路径
+    public static final String IMAGEPATH = "/storage/emulated/0/雪的情书";
+
+
+
+    public static final int TYPE_TOUXIANG = 0;
+    public static final int TYPE_BACKGROUD = 1;
+
+
 }

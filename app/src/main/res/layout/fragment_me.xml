@@ -1,76 +1,94 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="top"
-        android:gravity="top"
-        android:orientation="vertical"
-        tools:context="com.mz.snow.ui.fragment.MeFragment">
+        android:layout_height="match_parent">
 
-        <RelativeLayout
+        <com.scwang.smartrefresh.layout.header.ClassicsHeader
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content" />
 
-            <android.widget.ImageView
-                android:id="@+id/my_background"
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="top"
+            android:gravity="top"
+            android:orientation="vertical"
+            tools:context="com.mz.snow.ui.fragment.MeFragment">
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:background="@color/low_pink"
-                android:src="@drawable/me_back_default" />
+                android:layout_height="wrap_content">
+
+                <android.widget.ImageView
+                    android:id="@+id/my_background"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true" />
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_below="@id/my_background"
+                    android:background="@color/low_gray" />
+
+                <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+                    android:id="@+id/me_user_img"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_below="@id/my_background"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="-35dp"
+                    app:qmui_border_color="@color/write"
+                    app:qmui_border_width="2dp"
+                    app:qmui_is_circle="true" />
+
+                <TextView
+                    android:id="@+id/user_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/my_background"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_toRightOf="@id/me_user_img"
+                    android:maxLength="11"
+                    android:maxLines="1"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:id="@+id/member"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@+id/view"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_toRightOf="@id/user_text"
+                    android:src="@mipmap/ic_user_level_0" />
+            </RelativeLayout>
+
+
+            <com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
+                android:id="@+id/me_group_list1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_below="@id/my_background"
+                android:layout_height="7dp"
                 android:background="@color/low_gray" />
 
-            <com.qmuiteam.qmui.widget.QMUIRadiusImageView
-                android:id="@+id/me_user_img"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_below="@id/my_background"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="-35dp"
-
-                android:src="@drawable/touxaing"
-                app:qmui_border_color="@color/write"
-                app:qmui_border_width="2dp"
-                app:qmui_is_circle="true" />
-
-            <TextView
-                android:id="@+id/user_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/my_background"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="7dp"
-                android:layout_toRightOf="@id/me_user_img"
-                android:maxLength="11"
-                android:maxLines="1"
-                android:text=""
-                android:textSize="18sp" />
-        </RelativeLayout>
+            <com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
+                android:id="@+id/me_group_list2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
 
-        <com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
-            android:id="@+id/me_group_list1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <View
-            android:layout_width="match_parent"
-            android:background="@color/low_gray"
-            android:layout_height="7dp"/>
-        <com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
-            android:id="@+id/me_group_list2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-
-    </LinearLayout>
+        </LinearLayout>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 </ScrollView>

@@ -18,6 +18,35 @@ public class User extends BmobUser {
     private String age;             //年龄
 
 
+    private String touXiangPath;  //头像路径
+    private String backgroudPath;  //头像路径
+    private int integral;  //积分
+
+
+    public String getBackgroudPath() {
+        return backgroudPath;
+    }
+
+    public void setBackgroudPath(String backgroudPath) {
+        this.backgroudPath = backgroudPath;
+    }
+
+    public int getIntegral() {
+        return integral;
+    }
+
+    public void setIntegral(int integral) {
+        this.integral = integral;
+    }
+
+    public String getTouXiangPath() {
+        return touXiangPath;
+    }
+
+    public void setTouXiangPath(String touXiangPath) {
+        this.touXiangPath = touXiangPath;
+    }
+
     public String getNickname() {
         return nickname;
     }

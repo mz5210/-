@@ -77,4 +77,11 @@ public class SPUtils {
     private static SharedPreferences pref(Context con) {
         return PreferenceManager.getDefaultSharedPreferences(con);
     }
+    /**
+     * 保存登录密码
+     */
+    public static void setUser(Context context, String user) {
+        SharedPreferences bmob = context.getSharedPreferences("bmob_sp", 0);
+        bmob.edit().putString("user", user).commit();
+    }
 }

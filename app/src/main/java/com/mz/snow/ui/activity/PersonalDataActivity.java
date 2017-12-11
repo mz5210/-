@@ -15,12 +15,16 @@ import com.mz.snow.base.BaseActivity;
 import com.mz.snow.model.User;
 import com.mz.snow.utils.LogX;
 import com.mz.snow.utils.MyTipDialog;
+import com.mz.snow.utils.SPUtils;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,16 +48,19 @@ public class PersonalDataActivity extends BaseActivity {
     @BindView(R.id.personal_data_list3)
     QMUIGroupListView personalDataList3;
 
-    //    @BindView(R.id.refresh_layout)
-//    SmartRefreshLayout refreshLayout;
+    @BindView(R.id.refresh_layout)
+    SmartRefreshLayout refreshLayout;
     //        昵称item
     QMUICommonListItemView nicknameItem;
 
     //        性别item创建
     QMUICommonListItemView gender;
 
-    //        生日item创建
+    //        公历生日item创建
     QMUICommonListItemView birthday;
+    //        农历生日item创建
+    QMUICommonListItemView lunar_birthday;
+
     //        星座item创建
     QMUICommonListItemView constellation;
     //        年龄item创建
@@ -90,14 +97,14 @@ public class PersonalDataActivity extends BaseActivity {
     }
 
     void initViews() {
-//        refreshLayout.setEnableLoadmore(false);//是否启用上拉加载功能
-//        refreshLayout.setDisableContentWhenRefresh(true);//是否在刷新的时候禁止列表的操作
-//        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
-//            @Override
-//            public void onRefresh(RefreshLayout refreshlayout) {
-//                refreshUser();
-//            }
-//        });
+        refreshLayout.setEnableLoadmore(false);//是否启用上拉加载功能
+        refreshLayout.setDisableContentWhenRefresh(true);//是否在刷新的时候禁止列表的操作
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                refreshUser();
+            }
+        });
 
 
 //        昵称item创建
@@ -106,9 +113,13 @@ public class PersonalDataActivity extends BaseActivity {
 //        性别item创建
         gender = personalDataList1.createItemView(getResources().getText(R.string.gender));
         gender.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON);
-//        生日item创建
-        birthday = personalDataList2.createItemView(getResources().getText(R.string.birthday));
+//        公历生日item创建
+        birthday = personalDataList2.createItemView(getResources().getText(R.string.birthday)+"(公历)");
         birthday.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON);
+        //        农历生日item创建
+        lunar_birthday = personalDataList2.createItemView(getResources().getText(R.string.birthday)+"(农历)");
+        lunar_birthday.setDetailText("十月廿三");
+        lunar_birthday.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON);
 //        星座item创建
         constellation = personalDataList2.createItemView(getResources().getText(R.string.constellation));
         constellation.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON);
@@ -122,7 +133,7 @@ public class PersonalDataActivity extends BaseActivity {
         mobilePhoneNumber = personalDataList3.createItemView(getResources().getText(R.string.phone_number));
         mobilePhoneNumber.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON);
 //        设置item的文字
-        itemSetText();
+        setData();
 //         添加item到列表1
         QMUIGroupListView
                 .newSection(PersonalDataActivity.this)
@@ -134,6 +145,7 @@ public class PersonalDataActivity extends BaseActivity {
                 .newSection(PersonalDataActivity.this)
                 .setUseTitleViewForSectionSpace(false)
                 .addItemView(birthday, null)
+                .addItemView(lunar_birthday, null)
                 .addItemView(constellation, null)
                 .addItemView(age, null)
                 .addTo(personalDataList2);
@@ -160,7 +172,7 @@ public class PersonalDataActivity extends BaseActivity {
     };
 
     //    设置item的文字
-    void itemSetText() {
+    void setData() {
 //        获取当前用户信息
         userInfo = User.getCurrentUser(User.class);
         if (userInfo.getNickname() == null) {
@@ -269,7 +281,7 @@ public class PersonalDataActivity extends BaseActivity {
                     public void run() {
                         if (e == null) {
                             MyTipDialog.showSuccessDialog(PersonalDataActivity.this, "更新成功");
-                            itemSetText();
+                            setData();
                         } else {
 //                                                toast("更新用户信息失败:" + e.getMessage());
                         }
@@ -285,22 +297,10 @@ public class PersonalDataActivity extends BaseActivity {
             @Override
             public void done(String s, BmobException e) {
                 if (e == null) {
-                    Gson gson = new Gson();
-                    userInfo = gson.fromJson(s, User.class);
-                    Log.d("PersonalDataActivity", userInfo.toString());
-//                    refreshLayout.finishRefresh();
+                    refreshLayout.finishRefresh();
+                    SPUtils.setUser(PersonalDataActivity.this,s);
+                    setData();
 
-                    userInfo.update(new UpdateListener() {
-                        @Override
-                        public void done(BmobException e) {
-                            if (e == null) {
-                                //                    重新设置item的文字
-                                itemSetText();
-                            } else {
-//                                toast("更新用户信息失败:" + e.getMessage());
-                            }
-                        }
-                    });
                 } else {
                     LogX.v(e.toString());
                 }
