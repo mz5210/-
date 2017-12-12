@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 
 Properties props = new Properties()
 props.load(new FileInputStream(file("signing.properties")))
+
 android {
     signingConfigs {
 
@@ -12,6 +13,9 @@ android {
             storeFile file(props['KEYSTORE_FILE'])
             storePassword props['KEYSTORE_PASSWORD']
         }
+    }
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
     }
     compileSdkVersion 26
     defaultConfig {
@@ -51,7 +55,7 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     //glide图片加载
-    compile 'com.github.bumptech.glide:glide:3.7.0'
+//    compile 'com.github.bumptech.glide:glide:3.7.0'
     //QMUI
     compile 'com.qmuiteam:qmui:1.0.4'
     //    文字输入框 (EditText)
@@ -64,5 +68,8 @@ dependencies {
     //    compile 'cn.bmob.android:bmob-push:0.8'
     //bmob 如果你想应用能够兼容Android6.0，请添加此依赖(org.apache.http.legacy.jar)
 //    compile 'cn.bmob.android:http-legacy:1.0'
-
+        //glide图片加载
+    compile 'com.github.LuckSiege.PictureSelector:picture_library:v2.1.7'
+//Bmob的消息推送SDK
+    compile 'cn.bmob.android:bmob-push:1.0.1'
 }
