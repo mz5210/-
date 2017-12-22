@@ -3,7 +3,6 @@ package com.mz.snow.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,7 +21,6 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.tools.PictureFileUtils;
 import com.mz.snow.R;
 import com.mz.snow.model.User;
-import com.mz.snow.ui.LoginActivity;
 import com.mz.snow.ui.activity.MyFavoriteActivity;
 import com.mz.snow.ui.activity.PersonalDataActivity;
 import com.mz.snow.ui.activity.SettingActivity;
@@ -34,7 +32,6 @@ import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
-import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -125,8 +122,6 @@ public class MeFragment extends Fragment {
         setting.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON);
 //        关于item创建
         QMUICommonListItemView about = mGroupListView2.createItemView(getResources().getText(R.string.about));
-//        退出账号item创建
-        QMUICommonListItemView exit = mGroupListView2.createItemView(getResources().getText(R.string.log_out));
 //        添加item到列表1
         QMUIGroupListView
                 .newSection(getContext())
@@ -139,11 +134,11 @@ public class MeFragment extends Fragment {
                 .setUseTitleViewForSectionSpace(false)
                 .addItemView(setting, SettingOnClickListener)
                 .addItemView(about, AboutOnClickListener)
-                .addItemView(exit, ExitOnClickListener)
                 .addTo(mGroupListView2);
 
     }
-    void setData(){
+
+    void setData() {
 //        获取当前用户信息
         userInfo = BmobUser.getCurrentUser(User.class);
 //        设置用户头像
@@ -180,14 +175,15 @@ public class MeFragment extends Fragment {
             Glide.with(MeFragment.this).load(R.mipmap.ic_user_level_1).into(member);
         }
     }
-//    从服务器获取数据进行更新
+
+    //    从服务器获取数据进行更新
     void refreshUser() {
         User.fetchUserJsonInfo(new FetchUserInfoListener<String>() {
             @Override
             public void done(String s, BmobException e) {
                 if (e == null) {
                     refreshLayout.finishRefresh();
-                    SPUtils.setUser(getContext(),s);
+                    SPUtils.setUser(getContext(), s);
                     setData();
 
                 } else {
@@ -197,6 +193,7 @@ public class MeFragment extends Fragment {
 
         });
     }
+
     //    个人资料item按钮点击监听
     View.OnClickListener PersonalDataOnClickListener = new View.OnClickListener() {
         @Override
@@ -225,13 +222,6 @@ public class MeFragment extends Fragment {
             showAboutDialog();
         }
     };
-    //    退出item点击监听
-    View.OnClickListener ExitOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            showExitMessageDialog();
-        }
-    };
 
 
     //关于dialog
@@ -248,47 +238,6 @@ public class MeFragment extends Fragment {
                 .show();
     }
 
-    //    退出账号dialog
-    private void showExitMessageDialog() {
-        final QMUIDialog.CheckBoxMessageDialogBuilder checkBoxMessageDialogBuilder = new QMUIDialog.CheckBoxMessageDialogBuilder(getActivity());
-        checkBoxMessageDialogBuilder.setTitle("退出后是否删除账号信息?")
-                .setMessage("删除账号信息").setChecked(true)
-                .addAction("取消", new QMUIDialogAction.ActionListener() {
-                    @Override
-                    public void onClick(QMUIDialog dialog, int index) {
-                        dialog.dismiss();
-                    }
-                })
-                .addAction("退出", new QMUIDialogAction.ActionListener() {
-                    @Override
-                    public void onClick(QMUIDialog dialog, int index) {
-                        dialog.dismiss();
-                        if (checkBoxMessageDialogBuilder.isChecked()) {
-                            SPUtils.deleteUserAndPassword(getActivity());
-                        }
-                        exit();
-                    }
-                })
-                .show();
-    }
-
-    //    退出账号方法
-    void exit() {
-//       显示退出成功弹窗、清除用户缓存、跳转登录界面
-        MyTipDialog.showSuccessDialog(getContext(), getResources().getString(R.string.exit_success));
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-//                    清除缓存用户对象
-                BmobUser.logOut();
-//                    跳转到登录界面
-                startActivity(new Intent(getActivity(), LoginActivity.class));
-//                    关闭当前activity
-                getActivity().finish();
-            }
-        }, 1000);
-    }
 
     //    点击事件合集
     @OnClick({R.id.my_background, R.id.me_user_img, R.id.user_text, R.id.member})

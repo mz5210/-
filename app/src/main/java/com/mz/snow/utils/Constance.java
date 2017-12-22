@@ -27,7 +27,9 @@ public class Constance {
 
 
 //图片保存路径
-    public static final String IMAGEPATH = "/storage/emulated/0/雪的情书";
+    public static final String IMAGEPATH = "/storage/emulated/0/雪的情书/image";
+//    录音保存路径
+    public static final String VOICEPATH = "/storage/emulated/0/雪的情书/voice";
 
 
 

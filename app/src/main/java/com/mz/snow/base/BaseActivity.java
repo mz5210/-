@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.mz.snow.utils.FinishActivityManager;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 
 /**
@@ -20,6 +21,7 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FinishActivityManager.getManager().addActivity(this);
         context = this;
         QMUIStatusBarHelper.translucent(this);
     }
@@ -39,5 +41,13 @@ public class BaseActivity extends AppCompatActivity {
                 QMUIStatusBarHelper.getStatusbarHeight(context));
         view.setLayoutParams(params);
         lineLayout.addView(view);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        FinishActivityManager.getManager().finishActivity(this);
+
     }
 }

@@ -16,6 +16,7 @@ import com.mz.snow.base.BaseActivity;
 import com.mz.snow.ui.fragment.MeFragment;
 import com.mz.snow.ui.fragment.Tab1Fragment;
 import com.mz.snow.ui.fragment.Tab2Fragment;
+import com.mz.snow.view.NoScrollViewPager;
 import com.qmuiteam.qmui.util.QMUIResHelper;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.qmuiteam.qmui.widget.QMUIPagerAdapter;
@@ -28,7 +29,7 @@ public class HomeActivity extends BaseActivity {
     @BindView(R.id.tabs)
     QMUITabSegment mTabSegment;
     @BindView(R.id.pager)
-    ViewPager mViewPager;
+    NoScrollViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +74,7 @@ public class HomeActivity extends BaseActivity {
     }
 
     private void initPagers() {
+        mViewPager.setNoScroll(true);
         QMUIPagerAdapter pagerAdapter = new QMUIPagerAdapter() {
             private FragmentTransaction mCurrentTransaction;
             private Fragment mCurrentPrimaryItem = null;

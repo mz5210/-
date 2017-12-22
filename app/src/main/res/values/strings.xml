@@ -12,14 +12,14 @@
     <string name="personal_data">个人资料</string>
     <string name="my_favorite">收藏</string>
 
-        <!-- 我的资料页 -->
-        <string name="nickname">昵称</string>
-        <string name="gender">性别</string>
-        <string name="birthday">生日</string>
-        <string name="constellation">星座</string>
-        <string name="age">年龄</string>
-        <string name="mailbox">邮箱</string>
-        <string name="phone_number">手机号</string>
+    <!-- 我的资料页 -->
+    <string name="nickname">昵称</string>
+    <string name="gender">性别</string>
+    <string name="birthday">生日</string>
+    <string name="constellation">星座</string>
+    <string name="age">年龄</string>
+    <string name="mailbox">邮箱</string>
+    <string name="phone_number">手机号</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

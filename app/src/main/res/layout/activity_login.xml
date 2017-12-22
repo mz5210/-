@@ -6,12 +6,10 @@
     android:layout_height="match_parent"
     android:background="@color/low_cyan"
     android:orientation="vertical"
-
     tools:context="com.mz.snow.ui.LoginActivity">
 
         <ImageView
             android:src="@drawable/login_backs"
-            android:layout_gravity="top"
             android:adjustViewBounds="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
